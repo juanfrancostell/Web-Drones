@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cota · Grabación aérea con drones en Valencia</title>
+<meta name="description" content="Vídeo y fotografía aérea con drones en Valencia: bodas, inmobiliaria, eventos y paisaje. Vuelos con permisos y edición incluida.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --haze: #E4EAEC;
+    --haze-2: #D3DDE0;
+    --water: #1F3B4D;
+    --ink: #17252D;
+    --rice: #7E9448;
+    --stubble: #C6A35A;
+    --muted: #4F6470;
+    --line: rgba(23, 37, 45, .18);
+    --wide: "Archivo", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--haze);
+    color: var(--ink);
+    font-family: var(--wide);
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--stubble); outline-offset: 3px; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Header ---------- */
+  .top {
+    position: absolute; inset: 0 0 auto 0; z-index: 5;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 24px; color: #fff;
+  }
+  .brand { font-weight: 800; font-stretch: 125%; font-size: 1.35rem; letter-spacing: -.01em; text-decoration: none; }
+  .top nav { display: flex; gap: 26px; font-size: .95rem; }
+  .top nav a { text-decoration: none; opacity: .9; }
+  .top nav a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+
+  /* ---------- Hero: campos de arroz desde el aire ---------- */
+  .hero {
+    position: relative; min-height: 100svh; overflow: hidden;
+    background: var(--water); color: #fff;
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  #fields { position: absolute; inset: 0; width: 100%; height: 100%; }
+  #fields g { transform-origin: 50% 50%; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+  .hero::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(180deg, rgba(23,37,45,.35) 0%, rgba(23,37,45,0) 30%, rgba(23,37,45,.15) 55%, rgba(23,37,45,.85) 100%);
+  }
+  .hero-inner { position: relative; z-index: 2; padding-bottom: 48px; }
+  .hero h1 {
+    margin: 0; font-weight: 800; font-stretch: 125%;
+    font-size: clamp(2.6rem, 8.4vw, 7.4rem); line-height: .92; letter-spacing: -.035em;
+    max-width: 12ch;
+  }
+  .hero p.lead { max-width: 46ch; font-size: 1.2rem; margin: 22px 0 0; color: rgba(255,255,255,.88); }
+  .hero-bar {
+    margin-top: 36px; display: flex; flex-wrap: wrap; gap: 20px 40px; align-items: center;
+    padding-top: 22px; border-top: 1px solid rgba(255,255,255,.3);
+  }
+  .btn {
+    display: inline-block; padding: 14px 26px; border-radius: 999px;
+    background: var(--stubble); color: var(--ink); font-weight: 700; text-decoration: none;
+    border: 0; font: inherit; font-weight: 700; cursor: pointer;
+  }
+  .btn:hover { background: #d6b46a; }
+  .alt { display: flex; align-items: center; gap: 14px; font-size: .95rem; }
+  .alt label { white-space: nowrap; }
+  .alt output { font-weight: 700; font-stretch: 112%; min-width: 4.5ch; font-variant-numeric: tabular-nums; }
+  .alt input[type=range] { width: 180px; accent-color: var(--stubble); }
+
+  /* ---------- Secciones ---------- */
+  section.block { padding: 110px 0; }
+  .h2 {
+    font-weight: 750; font-stretch: 118%; letter-spacing: -.025em;
+    font-size: clamp(2rem, 4.6vw, 3.4rem); line-height: 1; margin: 0 0 18px; max-width: 18ch;
+  }
+  .intro { max-width: 58ch; color: var(--muted); margin: 0; font-size: 1.15rem; }
+
+  /* Servicios: filas, no tarjetas */
+  .services { margin-top: 56px; border-top: 1px solid var(--line); }
+  .svc {
+    display: grid; grid-template-columns: 1.1fr 1.6fr .7fr; gap: 24px;
+    padding: 30px 0; border-bottom: 1px solid var(--line); align-items: baseline;
+  }
+  .svc h3 { margin: 0; font-size: 1.6rem; font-weight: 700; font-stretch: 112%; letter-spacing: -.015em; }
+  .svc p { margin: 0; color: var(--muted); max-width: 52ch; }
+  .svc .price { text-align: right; font-weight: 600; white-space: nowrap; }
+  .svc .price small { display: block; font-weight: 400; color: var(--muted); font-size: .85rem; }
+
+  /* Franja de cifras sobre agua */
+  .water { background: var(--water); color: #fff; }
+  .water .intro { color: rgba(255,255,255,.75); }
+  .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 56px; }
+  .fact strong { display: block; font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 800; font-stretch: 125%; line-height: 1; letter-spacing: -.03em; color: var(--stubble); }
+  .fact span { display: block; margin-top: 10px; color: rgba(255,255,255,.8); max-width: 28ch; }
+
+  /* Proceso: sí es una secuencia */
+  .steps { list-style: none; padding: 0; margin: 56px 0 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; counter-reset: s; }
+  .steps li { counter-increment: s; border-top: 3px solid var(--rice); padding-top: 18px; }
+  .steps li::before { content: counter(s); display: block; font-weight: 800; font-stretch: 125%; font-size: 1.1rem; color: var(--rice); margin-bottom: 8px; }
+  .steps h3 { margin: 0 0 6px; font-size: 1.2rem; font-weight: 700; }
+  .steps p { margin: 0; color: var(--muted); font-size: 1rem; }
+
+  /* Contacto */
+  .contact { background: var(--haze-2); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: start; }
+  form { display: grid; gap: 16px; }
+  .field { display: grid; gap: 6px; }
+  .field label { font-weight: 600; font-size: .95rem; }
+  input, select, textarea {
+    font: inherit; color: var(--ink); background: #F4F7F8;
+    border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; width: 100%;
+  }
+  textarea { min-height: 120px; resize: vertical; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .direct { margin-top: 32px; display: grid; gap: 6px; }
+  .direct a { font-weight: 600; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+  .form-note { font-size: .9rem; color: var(--muted); margin: 0; }
+  .sent { font-weight: 600; color: var(--water); margin: 0; }
+
+  footer { padding: 36px 0; font-size: .9rem; color: var(--muted); }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+  @media (max-width: 860px) {
+    .top nav { display: none; }
+    .svc { grid-template-columns: 1fr; gap: 8px; }
+    .svc .price { text-align: left; }
+    .facts { grid-template-columns: 1fr; gap: 28px; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    section.block { padding: 80px 0; }
+  }
+  @media (max-width: 520px) {
+    .wrap, .top { padding-left: 16px; padding-right: 16px; }
+    .steps { grid-template-columns: 1fr; }
+    .row2 { grid-template-columns: 1fr; }
+    .alt input[type=range] { width: 140px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    #fields g { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a class="brand" href="#">cota</a>
+  <nav aria-label="Principal">
+    <a href="#servicios">Servicios</a>
+    <a href="#proceso">Cómo trabajamos</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+</header>
+
+<section class="hero" aria-label="Presentación">
+  <svg id="fields" aria-hidden="true" preserveAspectRatio="xMidYMid slice"></svg>
+  <div class="wrap hero-inner">
+    <h1>Valencia, vista desde arriba</h1>
+    <p class="lead">Vídeo y fotografía aérea con drones para bodas, inmobiliarias, eventos y marcas. Nos ocupamos de los permisos de vuelo y te entregamos el material editado.</p>
+    <div class="hero-bar">
+      <a class="btn" href="#contacto">Pedir presupuesto</a>
+      <div class="alt">
+        <label for="altitude">Altura de vuelo</label>
+        <input id="altitude" type="range" min="20" max="120" step="10" value="60">
+        <output for="altitude" id="altOut">60 m</output>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main>
+  <section class="block" id="servicios">
+    <div class="wrap">
+      <h2 class="h2">Lo que grabamos</h2>
+      <p class="intro">Cada encargo incluye planificación del vuelo, grabación en 4K y edición. Los precios son orientativos; te damos uno cerrado cuando sepamos el lugar y la duración.</p>
+
+      <div class="services">
+        <div class="svc">
+          <h3>Bodas</h3>
+          <p>La llegada, la ceremonia al aire libre y el entorno de la finca. Un vídeo corto para compartir y los clips en bruto para tu videógrafo.</p>
+          <div class="price">desde 290 €<small>media jornada</small></div>
+        </div>
+        <div class="svc">
+          <h3>Inmobiliaria</h3>
+          <p>Fotos y vídeo de la parcela, la fachada y lo que hay alrededor: la playa, el colegio, los accesos. Entrega en 48 horas.</p>
+          <div class="price">desde 150 €<small>por propiedad</small></div>
+        </div>
+        <div class="svc">
+          <h3>Eventos y marcas</h3>
+          <p>Festivales, carreras, inauguraciones y contenido para redes, en horizontal y en vertical.</p>
+          <div class="price">desde 350 €<small>por jornada</small></div>
+        </div>
+        <div class="svc">
+          <h3>Paisaje y turismo</h3>
+          <p>La Albufera, la huerta, la costa y el interior. Para hoteles, ayuntamientos y proyectos audiovisuales.</p>
+          <div class="price">a medida<small>según localización</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block water" aria-label="Datos">
+    <div class="wrap">
+      <h2 class="h2">Volamos donde se puede, y cuando se puede</h2>
+      <p class="intro">Buena parte de la provincia está cerca del aeropuerto o dentro de zonas protegidas. Antes de cada vuelo revisamos el espacio aéreo y tramitamos lo que haga falta.</p>
+      <div class="facts">
+        <div class="fact"><strong>4K</strong><span>Vídeo a 60 fps y fotos RAW en todos los encargos.</span></div>
+        <div class="fact"><strong>48 h</strong><span>Plazo de entrega habitual para fotografía inmobiliaria.</span></div>
+        <div class="fact"><strong>120 m</strong><span>Altura máxima permitida en categoría abierta.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="proceso">
+    <div class="wrap">
+      <h2 class="h2">Cómo trabajamos</h2>
+      <ol class="steps">
+        <li><h3>Nos cuentas el plan</h3><p>Lugar, fecha y para qué quieres las imágenes.</p></li>
+        <li><h3>Revisamos el espacio aéreo</h3><p>Comprobamos restricciones y pedimos permisos si hacen falta.</p></li>
+        <li><h3>Volamos</h3><p>Con el tiempo a favor. Si hay viento fuerte o lluvia, movemos la fecha sin coste.</p></li>
+        <li><h3>Editamos y entregamos</h3><p>Recibes un enlace de descarga con el vídeo montado y las fotos.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block contact" id="contacto">
+    <div class="wrap contact-grid">
+      <div>
+        <h2 class="h2">Cuéntanos qué quieres grabar</h2>
+        <p class="intro">Te respondemos con un presupuesto en menos de 24 horas laborables.</p>
+        <div class="direct">
+          <a href="mailto:hola@cota.example">hola@cota.example</a>
+          <a href="tel:+34600000000">600 000 000</a>
+        </div>
+      </div>
+      <form id="quote" novalidate>
+        <div class="row2">
+          <div class="field"><label for="name">Nombre</label><input id="name" name="name" autocomplete="name" required></div>
+          <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="type">Tipo de encargo</label>
+            <select id="type" name="type">
+              <option>Boda</option><option>Inmobiliaria</option><option>Evento o marca</option><option>Paisaje y turismo</option><option>Otro</option>
+            </select>
+          </div>
+          <div class="field"><label for="date">Fecha aproximada</label><input id="date" name="date" type="date"></div>
+        </div>
+        <div class="field"><label for="msg">Lugar y detalles</label><textarea id="msg" name="msg" placeholder="Por ejemplo: finca en Sueca, ceremonia a las 19:00"></textarea></div>
+        <button class="btn" type="submit">Pedir presupuesto</button>
+        <p class="form-note" id="formStatus" role="status">Se abrirá tu correo con el mensaje preparado.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Cota — grabación aérea en Valencia</span>
+    <span>Vuelos según la normativa de AESA</span>
+  </div>
+</footer>
+
+<script>
+/* Mosaico de parcelas (arrozales, huerta, acequias) generado al vuelo */
+(function () {
+  const svg = document.getElementById('fields');
+  const NS = 'http://www.w3.org/2000/svg';
+  const W = 1600, H = 1000;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+
+  let seed = 7;
+  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const palette = ['#7E9448', '#8FA35A', '#6C8240', '#A3B26A', '#C6A35A', '#B8955020', '#2E5566', '#9AAE5E', '#D0B26E', '#5F7A3A'];
+
+  const g = document.createElementNS(NS, 'g');
+  svg.appendChild(g);
+
+  // agua de fondo
+  const bg = document.createElementNS(NS, 'rect');
+  Object.entries({ x: -W, y: -H, width: W * 3, height: H * 3, fill: '#2E5566' }).forEach(([k, v]) => bg.setAttribute(k, v));
+  g.appendChild(bg);
+
+  // parcelas en cuadrícula ligeramente girada, como la huerta
+  const plots = document.createElementNS(NS, 'g');
+  plots.setAttribute('transform', `rotate(-14 ${W / 2} ${H / 2})`);
+  g.appendChild(plots);
+
+  for (let y = -900; y < H + 900; ) {
+    const rowH = 60 + rnd() * 110;
+    for (let x = -1000; x < W + 1000; ) {
+      const w = 80 + rnd() * 220;
+      const r = document.createElementNS(NS, 'rect');
+      const isWater = rnd() < .06;
+      const fill = isWater ? '#2E5566' : palette[Math.floor(rnd() * palette.length)].slice(0, 7);
+      Object.entries({ x: x + 3, y: y + 3, width: w - 6, height: rowH - 6, fill, opacity: (0.78 + rnd() * 0.22).toFixed(2) })
+        .forEach(([k, v]) => r.setAttribute(k, v));
+      plots.appendChild(r);
+      // surcos en algunas parcelas
+      if (!isWater && rnd() < .45) {
+        for (let s = 10; s < rowH - 8; s += 9) {
+          const l = document.createElementNS(NS, 'line');
+          Object.entries({ x1: x + 6, x2: x + w - 6, y1: y + s, y2: y + s, stroke: 'rgba(23,37,45,.12)', 'stroke-width': 1.5 })
+            .forEach(([k, v]) => l.setAttribute(k, v));
+          plots.appendChild(l);
+        }
+      }
+      x += w;
+    }
+    // acequia entre filas
+    const c = document.createElementNS(NS, 'rect');
+    Object.entries({ x: -1000, y: y + rowH - 3, width: W + 2000, height: 6, fill: '#3B6A7C' }).forEach(([k, v]) => c.setAttribute(k, v));
+    plots.appendChild(c);
+    y += rowH;
+  }
+
+  // camino diagonal
+  const road = document.createElementNS(NS, 'path');
+  Object.entries({ d: `M -200 ${H * .85} C ${W * .3} ${H * .6}, ${W * .55} ${H * .7}, ${W + 200} ${H * .15}`, stroke: '#E4D9BC', 'stroke-width': 14, fill: 'none', opacity: .9 })
+    .forEach(([k, v]) => road.setAttribute(k, v));
+  g.appendChild(road);
+
+  // altura: más alto = más campo visible
+  const input = document.getElementById('altitude');
+  const out = document.getElementById('altOut');
+  const update = () => {
+    const a = +input.value;
+    out.textContent = a + ' m';
+    const scale = 2.6 - (a - 20) / 100 * 1.9; // 20 m → 2.6x, 120 m → 0.7x
+    g.style.transform = `scale(${scale.toFixed(3)})`;
+  };
+  input.addEventListener('input', update);
+  update();
+})();
+
+/* Formulario: abre el correo con el mensaje montado */
+document.getElementById('quote').addEventListener('submit', function (e) {
+  e.preventDefault();
+  const f = e.target, status = document.getElementById('formStatus');
+  if (!f.name.value.trim() || !f.email.value.includes('@')) {
+    status.textContent = 'Falta tu nombre o un email válido.';
+    status.className = 'form-note';
+    (f.name.value.trim() ? f.email : f.name).focus();
+    return;
+  }
+  const body = `Nombre: ${f.name.value}\nEmail: ${f.email.value}\nEncargo: ${f.type.value}\nFecha: ${f.date.value || 'por decidir'}\n\n${f.msg.value}`;
+  location.href = `mailto:hola@cota.example?subject=${encodeURIComponent('Presupuesto: ' + f.type.value)}&body=${encodeURIComponent(body)}`;
+  status.textContent = 'Mensaje preparado en tu correo. Solo falta enviarlo.';
+  status.className = 'sent';
+});
+</script>
+</body>
+</html>
